@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, Input } from '@rneui/base';
+import { Button } from '@rneui/base';
 import { Formik } from 'formik';
+import FormikInputValue from '../Components/FormikInputValue';
+import { singUpValidationSchema } from '../validations/singUpSchema';
 
 export default function Login({ navigation }) {
     return (
@@ -8,6 +10,7 @@ export default function Login({ navigation }) {
             <Text style={styles.text}>Regístrate</Text>
 
             <Formik
+                validationSchema={singUpValidationSchema}
                 initialValues={{
                     userName: '',
                     email: '',
@@ -25,48 +28,21 @@ export default function Login({ navigation }) {
                         }}
                     >
                         <View>
-                            <Input
-                                labelStyle={{ color: 'white' }}
+                            <FormikInputValue
+                                name="userName"
                                 label="Nombre de Usuario"
-                                onChangeText={handleChange('userName')}
-                                value={values.userName}
-                                inputStyle={{
-                                    backgroundColor: 'white',
-                                }}
-                                containerStyle={{ width: 300 }}
                             />
-
-                            <Input
-                                labelStyle={{ color: 'white' }}
+                            <FormikInputValue
+                                name="email"
                                 label="Correo electrónico"
-                                onChangeText={handleChange('email')}
-                                value={values.email}
-                                inputStyle={{
-                                    backgroundColor: 'white',
-                                }}
-                                containerStyle={{ width: 300 }}
                             />
-
-                            <Input
-                                labelStyle={{ color: 'white' }}
+                            <FormikInputValue
+                                name="password"
                                 label="Contraseña"
-                                onChangeText={handleChange('password')}
-                                value={values.password}
-                                inputStyle={{
-                                    backgroundColor: 'white',
-                                }}
-                                containerStyle={{ width: 300 }}
                             />
-
-                            <Input
-                                labelStyle={{ color: 'white' }}
+                            <FormikInputValue
+                                name="confirmPassword"
                                 label="Repetir Contraseña"
-                                onChangeText={handleChange('confirmPassword')}
-                                value={values.confirmPassword}
-                                inputStyle={{
-                                    backgroundColor: 'white',
-                                }}
-                                containerStyle={{ width: 300 }}
                             />
                         </View>
 

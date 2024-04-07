@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, Input } from '@rneui/base';
+import { Button } from '@rneui/base';
 import { Formik } from 'formik';
+import FormikInputValue from '../Components/FormikInputValue';
+import { loginValidationSchema } from '../validations/loginSchema';
 
 export default function Login({ navigation }) {
     return (
@@ -8,10 +10,11 @@ export default function Login({ navigation }) {
             <Text style={styles.text}>Inicia sesión</Text>
 
             <Formik
+                validationSchema={loginValidationSchema}
                 initialValues={{ email: '', password: '' }}
                 onSubmit={(values) => console.log(values)}
             >
-                {({ handleChange, handleSubmit, values }) => (
+                {({ handleSubmit }) => (
                     <View
                         style={{
                             flexDirection: 'column',
@@ -20,26 +23,14 @@ export default function Login({ navigation }) {
                         }}
                     >
                         <View>
-                            <Input
-                                labelStyle={{ color: 'white' }}
+                            <FormikInputValue
+                                name="email"
                                 label="Correo electrónico"
-                                onChangeText={handleChange('email')}
-                                value={values.email}
-                                inputStyle={{
-                                    backgroundColor: 'white',
-                                }}
-                                containerStyle={{ width: 300 }}
                             />
 
-                            <Input
-                                labelStyle={{ color: 'white' }}
+                            <FormikInputValue
+                                name="password"
                                 label="Contraseña"
-                                onChangeText={handleChange('password')}
-                                value={values.password}
-                                inputStyle={{
-                                    backgroundColor: 'white',
-                                }}
-                                containerStyle={{ width: 300 }}
                             />
                         </View>
 
