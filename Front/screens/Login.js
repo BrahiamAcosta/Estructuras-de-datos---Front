@@ -19,7 +19,7 @@ export default function Login({ navigation }) {
                             justifyContent: 'center',
                         }}
                     >
-                        <View style={styles.input}>
+                        <View>
                             <Input
                                 labelStyle={{ color: 'white' }}
                                 label="Correo electrónico"
@@ -94,8 +94,5 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         gap: 80,
         marginTop: 80,
-    },
-    input: {
-        width: '100%',
     },
 });

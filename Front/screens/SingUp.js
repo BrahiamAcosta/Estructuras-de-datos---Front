@@ -1,16 +1,126 @@
-import { View, Text } from 'react-native';
-import { Button } from '@rneui/base';
+import { View, Text, StyleSheet } from 'react-native';
+import { Button, Input } from '@rneui/base';
+import { Formik } from 'formik';
 
-export default function SingUp({ navigation }) {
+export default function Login({ navigation }) {
     return (
-        <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-            <Text>Sing up screen</Text>
-            <Button
-                title={'Go Home screen'}
-                onPress={() => navigation.navigate('Home')}
-            />
+        <View style={styles.container}>
+            <Text style={styles.text}>Regístrate</Text>
+
+            <Formik
+                initialValues={{
+                    userName: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: '',
+                }}
+                onSubmit={(values) => console.log(values)}
+            >
+                {({ handleChange, handleSubmit, values }) => (
+                    <View
+                        style={{
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <View>
+                            <Input
+                                labelStyle={{ color: 'white' }}
+                                label="Nombre de Usuario"
+                                onChangeText={handleChange('userName')}
+                                value={values.userName}
+                                inputStyle={{
+                                    backgroundColor: 'white',
+                                }}
+                                containerStyle={{ width: 300 }}
+                            />
+
+                            <Input
+                                labelStyle={{ color: 'white' }}
+                                label="Correo electrónico"
+                                onChangeText={handleChange('email')}
+                                value={values.email}
+                                inputStyle={{
+                                    backgroundColor: 'white',
+                                }}
+                                containerStyle={{ width: 300 }}
+                            />
+
+                            <Input
+                                labelStyle={{ color: 'white' }}
+                                label="Contraseña"
+                                onChangeText={handleChange('password')}
+                                value={values.password}
+                                inputStyle={{
+                                    backgroundColor: 'white',
+                                }}
+                                containerStyle={{ width: 300 }}
+                            />
+
+                            <Input
+                                labelStyle={{ color: 'white' }}
+                                label="Repetir Contraseña"
+                                onChangeText={handleChange('confirmPassword')}
+                                value={values.confirmPassword}
+                                inputStyle={{
+                                    backgroundColor: 'white',
+                                }}
+                                containerStyle={{ width: 300 }}
+                            />
+                        </View>
+
+                        <View style={styles.buttons}>
+                            <Button
+                                titleStyle={{ marginHorizontal: 15 }}
+                                onPress={handleSubmit}
+                                title="Crear cuenta"
+                                buttonStyle={{
+                                    backgroundColor: '#3F4145',
+                                    width: 235,
+                                    borderRadius: 30,
+                                }}
+                            />
+                            <Button
+                                onPress={() => navigation.navigate('Home')}
+                                buttonStyle={{
+                                    backgroundColor: '#3F4145',
+                                    width: 235,
+                                    borderRadius: 30,
+                                }}
+                                title={'Regresar'}
+                                titleStyle={{ marginHorizontal: 15 }}
+                            />
+                        </View>
+                    </View>
+                )}
+            </Formik>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#02ADD9',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    text: {
+        color: 'white',
+        fontSize: 60,
+        fontWeight: '200',
+        marginBottom: 50,
+        marginTop: 80,
+    },
+    buttons: {
+        width: '100%',
+        height: '40%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: 80,
+        marginTop: 80,
+    },
+});
