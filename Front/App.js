@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/Home';
 import Login from './screens/Login';
 import SingUp from './screens/SingUp';
+import ScannerScreen from './screens/ScannerScreen';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -31,6 +32,14 @@ export default function App() {
                     options={{
                         headerShown: false,
                         animation: 'slide_from_left',
+                    }}
+                />
+                <Stack.Screen
+                    name="Scanner"
+                    component={ScannerScreen}
+                    options={{
+                        headerShown: false,
+                        animation: 'slide_from_bottom',
                     }}
                 />
             </Stack.Navigator>

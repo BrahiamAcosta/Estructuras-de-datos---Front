@@ -4,7 +4,11 @@ import { Formik } from 'formik';
 import FormikInputValue from '../Components/FormikInputValue';
 import { singUpValidationSchema } from '../validations/singUpSchema';
 
-export default function Login({ navigation }) {
+export default function SingUp({ navigation }) {
+    const validate = (values) => {
+        console.log(values);
+        navigation.navigate('Scanner');
+    };
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Regístrate</Text>
@@ -17,7 +21,7 @@ export default function Login({ navigation }) {
                     password: '',
                     confirmPassword: '',
                 }}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={(values) => validate(values)}
             >
                 {({ handleChange, handleSubmit, values }) => (
                     <View

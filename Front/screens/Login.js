@@ -5,6 +5,10 @@ import FormikInputValue from '../Components/FormikInputValue';
 import { loginValidationSchema } from '../validations/loginSchema';
 
 export default function Login({ navigation }) {
+    const validate = (values) => {
+        console.log(values);
+        navigation.navigate('Scanner');
+    };
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Inicia sesión</Text>
@@ -12,7 +16,7 @@ export default function Login({ navigation }) {
             <Formik
                 validationSchema={loginValidationSchema}
                 initialValues={{ email: '', password: '' }}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={(values) => validate(values)}
             >
                 {({ handleSubmit }) => (
                     <View
