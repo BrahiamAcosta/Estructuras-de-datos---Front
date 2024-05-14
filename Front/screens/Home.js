@@ -1,10 +1,12 @@
-import { Button, Icon } from '@rneui/base';
+import { Button, Icon, color } from '@rneui/base';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 const Logo = require('../assets/logo.png');
 export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
+            <StatusBar style={{ backgroundColor: '#02ADD9' }} />
             <View style={styles.logo}>
                 <Image source={Logo} style={{ width: 170, height: 186 }} />
             </View>
