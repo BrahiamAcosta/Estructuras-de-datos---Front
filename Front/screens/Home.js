@@ -1,4 +1,4 @@
-import { Button, Icon, color } from '@rneui/base';
+import { Button, Icon } from '@rneui/base';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 

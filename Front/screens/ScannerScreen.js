@@ -1,10 +1,14 @@
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { Header, Button, Icon } from '@rneui/base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useState } from 'react';
+import QRScanner from '../Components/QRScanner';
 
 const Logo = require('../assets/logo.png');
+const Qr = require('../assets/qr-code.png');
 
 export default function ScannerScreen({ navigation }) {
+    const [isScanned, setIsScanned] = useState(false);
     return (
         <SafeAreaProvider>
             <View style={styles.background}>
@@ -74,7 +78,32 @@ export default function ScannerScreen({ navigation }) {
                         justifyContent: 'center',
                     }}
                 >
-                    <Text style={{ color: 'black' }}> Scaner Screen</Text>
+                    {!isScanned ? (
+                        <>
+                            <Image
+                                source={Qr}
+                                style={{ width: 300, height: 300 }}
+                            />
+                            <Text style={styles.text}>
+                                Escanea el código QR y descubre su contenido :)
+                            </Text>
+                        </>
+                    ) : (
+                        <>
+                            <QRScanner />
+                            <Text style={styles.text}>
+                                Apunta tu camara al código :)
+                            </Text>
+                        </>
+                    )}
+                    <Button
+                        onPress={() => {
+                            setIsScanned(!isScanned);
+                        }}
+                        buttonStyle={styles.button}
+                        title={'Escanear'}
+                        titleStyle={{ fontSize: 20 }}
+                    />
                 </View>
             </View>
         </SafeAreaProvider>
@@ -92,5 +121,17 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 40,
         fontWeight: '300',
+    },
+    text: {
+        color: 'gray',
+        fontSize: 25,
+        marginTop: 25,
+        textAlign: 'center',
+    },
+    button: {
+        marginTop: 50,
+        backgroundColor: '#02ADD9',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
