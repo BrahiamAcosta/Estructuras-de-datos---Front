@@ -87,23 +87,31 @@ export default function ScannerScreen({ navigation }) {
                             <Text style={styles.text}>
                                 Escanea el código QR y descubre su contenido :)
                             </Text>
+                            <Button
+                                onPress={() => {
+                                    setIsScanned(!isScanned);
+                                }}
+                                buttonStyle={styles.button}
+                                title={'Escanear'}
+                                titleStyle={{ fontSize: 20 }}
+                            />
                         </>
                     ) : (
                         <>
                             <QRScanner />
                             <Text style={styles.text}>
-                                Apunta tu camara al código :)
+                                Apunta tu cámara al código QR :)
                             </Text>
+                            <Button
+                                onPress={() => {
+                                    setIsScanned(!isScanned);
+                                }}
+                                buttonStyle={styles.button}
+                                title={'Regresar'}
+                                titleStyle={{ fontSize: 20 }}
+                            />
                         </>
                     )}
-                    <Button
-                        onPress={() => {
-                            setIsScanned(!isScanned);
-                        }}
-                        buttonStyle={styles.button}
-                        title={'Escanear'}
-                        titleStyle={{ fontSize: 20 }}
-                    />
                 </View>
             </View>
         </SafeAreaProvider>

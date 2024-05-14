@@ -27,9 +27,9 @@ const QRScanner = () => {
     if (hasPermission === false) {
         return (
             <View style={{ margin: 10 }}>
-                <Text>No access to camera</Text>
+                <Text>No tenemos acceso a la cámara :(</Text>
                 <Button
-                    title="Allow Camera"
+                    title="Permitir cámara"
                     onPress={() => getCameraPermissions()}
                 />
             </View>
