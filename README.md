@@ -5,6 +5,7 @@ Antes de comenzar, asegurate de tener instalado lo siguiente en tu máquina:
 - Node.js y npm: [Descargar e instalar](https://nodejs.org/)
 - Git: [Descargar e instalar](https://git-smc.com/)
 - Expo CLI: instala Expo CLI globalmente usando npm:
+  sh
   npm install -g expo-cli
 ## Instalación
 Sigue los siguientes pasos para configurar el proyecto en tu máquina local:
