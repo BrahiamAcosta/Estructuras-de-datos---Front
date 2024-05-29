@@ -12,10 +12,7 @@ export default function Login({ navigation }) {
     const [info, setInfo] = useState('');
     const validate = async (values) => {
         const { email, password } = values;
-        console.log(email);
-        console.log(password);
         try {
-            console.log('Start requests...');
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
