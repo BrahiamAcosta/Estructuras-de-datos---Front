@@ -26,6 +26,7 @@ export default function Login({ navigation }) {
 
             const data = await response.json();
             if (response.ok && data.token && data.userName) {
+                setInfo(data);
                 navigation.navigate('Scanner');
             } else {
                 setInfo(data);

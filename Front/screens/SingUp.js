@@ -3,11 +3,38 @@ import { Button } from '@rneui/base';
 import { Formik } from 'formik';
 import FormikInputValue from '../Components/FormikInputValue';
 import { singUpValidationSchema } from '../validations/singUpSchema';
+import { useState } from 'react';
+import CustomOverlay from '../Components/CustomOverlay';
+import { API_URL } from '../config.env';
 
 export default function SingUp({ navigation }) {
-    const validate = (values) => {
-        console.log(values);
-        navigation.navigate('Scanner');
+    const [visible, setvisible] = useState(false);
+    const [info, setInfo] = useState('');
+    const validate = async (values) => {
+        const { userName, email, password } = values;
+        try {
+            const response = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userName,
+                    email,
+                    password,
+                }),
+            });
+
+            const data = await response.json();
+            console.log(data);
+            setInfo(data);
+            toggleOverlay();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const toggleOverlay = () => {
+        setvisible(!visible);
     };
     return (
         <View style={styles.container}>
@@ -23,7 +50,7 @@ export default function SingUp({ navigation }) {
                 }}
                 onSubmit={(values) => validate(values)}
             >
-                {({ handleChange, handleSubmit, values }) => (
+                {({ handleSubmit }) => (
                     <View
                         style={{
                             flexDirection: 'column',
@@ -43,10 +70,12 @@ export default function SingUp({ navigation }) {
                             <FormikInputValue
                                 name="password"
                                 label="Contraseña"
+                                secureTextEntry={true}
                             />
                             <FormikInputValue
                                 name="confirmPassword"
                                 label="Repetir Contraseña"
+                                secureTextEntry={true}
                             />
                         </View>
 
@@ -75,6 +104,23 @@ export default function SingUp({ navigation }) {
                     </View>
                 )}
             </Formik>
+            <CustomOverlay visible={visible} toggleOverlay={toggleOverlay}>
+                {info.message == 'Cuenta creada con exito' ? (
+                    <>
+                        <Text style={styles.secondary}>{info.message}</Text>
+                        <Text style={styles.secondary}>
+                            Dirígete a iniciar sesión
+                        </Text>
+                    </>
+                ) : (
+                    <>
+                        <Text style={styles.secondary}>
+                            !Oops¡ Algo salió mal
+                        </Text>
+                        <Text style={styles.secondary}>{info.message}</Text>
+                    </>
+                )}
+            </CustomOverlay>
         </View>
     );
 }
@@ -102,5 +148,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         gap: 80,
         marginTop: 80,
+    },
+    secondary: {
+        color: 'black',
+        fontSize: 20,
+        textAlign: 'center',
     },
 });

@@ -20,7 +20,7 @@ export default function FormikInputValue({ name, ...props }) {
             {meta.error && (
                 <Text
                     style={{
-                        color: 'red',
+                        color: 'white',
                         marginTop: -25,
                         marginBottom: 20,
                         marginLeft: 10,
