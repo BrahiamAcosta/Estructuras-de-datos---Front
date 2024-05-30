@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import FormikInputValue from '../Components/FormikInputValue';
 import { loginValidationSchema } from '../validations/loginSchema';
 import { API_URL } from '../config.env';
+import { saveAuthData } from '../utils/authStorage';
 import { useState } from 'react';
 import CustomOverlay from '../Components/CustomOverlay';
 
@@ -26,7 +27,7 @@ export default function Login({ navigation }) {
 
             const data = await response.json();
             if (response.ok && data.token && data.userName) {
-                setInfo(data);
+                await saveAuthData(data.token, data.userName);
                 navigation.navigate('Scanner');
             } else {
                 setInfo(data);

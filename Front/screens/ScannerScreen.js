@@ -3,12 +3,33 @@ import { Header, Button, Icon } from '@rneui/base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import QRScanner from '../Components/QRScanner';
+import { Overlay } from '@rneui/base';
+import { getAuthData } from '../utils/authStorage';
+import { useEffect } from 'react';
 
 const Logo = require('../assets/logo.png');
 const Qr = require('../assets/qr-code.png');
 
 export default function ScannerScreen({ navigation }) {
     const [isScanned, setIsScanned] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [userName, setUserName] = useState(null);
+
+    useEffect(() => {
+        const fetchAuthData = async () => {
+            const { userName } = await getAuthData();
+            setUserName(userName);
+        };
+        fetchAuthData();
+        setTimeout(() => {
+            setVisible(!visible);
+        }, 500);
+    }, []);
+
+    const toggleOverlay = () => {
+        setVisible(!visible);
+    };
+
     return (
         <SafeAreaProvider>
             <View style={styles.background}>
@@ -71,6 +92,32 @@ export default function ScannerScreen({ navigation }) {
                         justifyContent: 'center',
                     }}
                 />
+
+                <Overlay
+                    isVisible={visible}
+                    onBackdropPress={toggleOverlay}
+                    overlayStyle={{
+                        backgroundColor: 'white',
+                        borderRadius: 10,
+                        height: '40%',
+                        width: '80%',
+                        alignItems: 'center',
+                        justifyContent: 'space-evenly',
+                    }}
+                >
+                    <Text style={styles.secondary}>Bienvenido!</Text>
+                    <Text style={styles.secondary}>{userName}</Text>
+                    <Button
+                        buttonStyle={{
+                            backgroundColor: '#3F4145',
+                            width: 235,
+                            borderRadius: 30,
+                        }}
+                        title="Regresar"
+                        onPress={toggleOverlay}
+                    />
+                </Overlay>
+
                 <View
                     style={{
                         flex: 1,
@@ -141,5 +188,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#02ADD9',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    secondary: {
+        color: 'black',
+        fontSize: 25,
+        textAlign: 'center',
     },
 });

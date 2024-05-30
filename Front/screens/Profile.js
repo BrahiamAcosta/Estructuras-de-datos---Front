@@ -1,7 +1,12 @@
 import { Text, View, StyleSheet } from 'react-native';
 import { Avatar, Button } from '@rneui/base';
+import { clearAuthData } from '../utils/authStorage';
 
 export default function Profile({ navigation }) {
+    const handleLogout = async () => {
+        await clearAuthData();
+        navigation.navigate('Home');
+    };
     return (
         <View style={styles.background}>
             <View style={styles.separator} />
@@ -28,7 +33,7 @@ export default function Profile({ navigation }) {
                 <Text style={styles.mainText}>QR's Escaneados: 10</Text>
                 <Button
                     onPress={() => {
-                        navigation.navigate('Home');
+                        handleLogout();
                     }}
                     buttonStyle={styles.button}
                     title={'Cerrar sesión'}
