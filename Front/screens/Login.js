@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from '@rneui/base';
-import { Overlay } from '@rneui/themed';
 import { Formik } from 'formik';
 import FormikInputValue from '../Components/FormikInputValue';
 import { loginValidationSchema } from '../validations/loginSchema';
 import { API_URL } from '../config.env';
 import { useState } from 'react';
+import CustomOverlay from '../Components/CustomOverlay';
 
 export default function Login({ navigation }) {
     const [visible, setvisible] = useState(false);
@@ -92,29 +92,10 @@ export default function Login({ navigation }) {
                     </View>
                 )}
             </Formik>
-            <Overlay
-                isVisible={visible}
-                onBackdropPress={toggleOverlay}
-                overlayStyle={{
-                    borderRadius: 10,
-                    height: '40%',
-                    width: '80%',
-                    alignItems: 'center',
-                    justifyContent: 'space-evenly',
-                }}
-            >
+            <CustomOverlay visible={visible} toggleOverlay={toggleOverlay}>
                 <Text style={styles.secondary}>!Oops¡ Algo salió mal</Text>
                 <Text style={styles.secondary}>{info.message}</Text>
-                <Button
-                    buttonStyle={{
-                        backgroundColor: '#3F4145',
-                        width: 235,
-                        borderRadius: 30,
-                    }}
-                    title="Volver a intentar"
-                    onPress={toggleOverlay}
-                />
-            </Overlay>
+            </CustomOverlay>
         </View>
     );
 }
@@ -145,5 +126,6 @@ const styles = StyleSheet.create({
     secondary: {
         color: 'black',
         fontSize: 20,
+        textAlign: 'center',
     },
 });
