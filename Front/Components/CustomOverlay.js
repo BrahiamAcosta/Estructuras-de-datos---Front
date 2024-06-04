@@ -21,7 +21,7 @@ export default function CustomOverlay({ visible, toggleOverlay, children }) {
                     width: 235,
                     borderRadius: 30,
                 }}
-                title="Volver a intentar"
+                title="Cerrar"
                 onPress={toggleOverlay}
             />
         </Overlay>

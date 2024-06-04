@@ -113,7 +113,7 @@ export default function ScannerScreen({ navigation }) {
                             width: 235,
                             borderRadius: 30,
                         }}
-                        title="Regresar"
+                        title="Salir"
                         onPress={toggleOverlay}
                     />
                 </Overlay>
