@@ -14,6 +14,7 @@ const QRScanner = ({ handleScanned }) => {
      const [data, setData] = useState({});
      const [userName, setUserName] = useState(null);
      const [sound, setSound] = useState(null);
+     const [tags, setTags] = useState([])
 
      const toggleOverlay = () => {
           setshowOverlay(!showOverlay);
@@ -46,7 +47,8 @@ const QRScanner = ({ handleScanned }) => {
           const saveData = async () => {
                response = await fetchSingleQr(data, userName);
                setData(response);
-               console.log(response.tags)
+               const names = response.tags.map(tag => tag.name);
+                setTags(names);
           };
           saveData();
           console.log('scanned');
@@ -98,6 +100,9 @@ const QRScanner = ({ handleScanned }) => {
                          </Text>
                          {data.resources && (
                               <>
+                              <Text style={{ fontSize: 20,color:'blue' }}>
+                                        {`Tags: ${tags.join(', ')}`}
+                                   </Text>
                                    <Image
                                         source={{
                                              uri: data.resources[2].content.toString(),
