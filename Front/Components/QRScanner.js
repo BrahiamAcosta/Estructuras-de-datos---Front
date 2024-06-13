@@ -46,6 +46,7 @@ const QRScanner = ({ handleScanned }) => {
           const saveData = async () => {
                response = await fetchSingleQr(data, userName);
                setData(response);
+               console.log(response.tags)
           };
           saveData();
           console.log('scanned');

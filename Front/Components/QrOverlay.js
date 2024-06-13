@@ -2,7 +2,7 @@ import { Button } from '@rneui/base';
 import { Overlay } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { Input } from '@rneui/themed';
-import { reportQrError } from '../utils/api';
+import { reportQrError, addQrToFavorite } from '../utils/api';
 import { getAuthData } from '../utils/authStorage';
 import { Alert } from 'react-native';
 
@@ -39,6 +39,16 @@ export default function QrOverlay({ visible, children, toggleScanned , data}) {
         
       };
 
+      const handleAddFavorite = async () =>{
+        response = await addQrToFavorite(data.qrIdentifier,userName)
+        console.log(response)
+        Alert.alert(
+          'Perfecto 👌',
+          'Hemos añadido este Qr a tus favoritos',
+          [{ text: 'Aceptar', onPress: () => toggleScanned() }]
+        );
+      }
+
     return (
         <Overlay
       isVisible={visible}
@@ -64,7 +74,7 @@ export default function QrOverlay({ visible, children, toggleScanned , data}) {
                   marginBottom: 10,
                 }}
                 title="Agregar a favoritos ⭐"
-                onPress={handleReport}
+                onPress={handleAddFavorite}
               />
               <Button
                 buttonStyle={{
