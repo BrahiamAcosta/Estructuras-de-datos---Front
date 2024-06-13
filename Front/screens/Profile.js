@@ -1,8 +1,19 @@
 import { Text, View, StyleSheet } from 'react-native';
 import { Avatar, Button } from '@rneui/base';
 import { clearAuthData } from '../utils/authStorage';
+import { useEffect, useState } from 'react';
+import { getAuthData } from '../utils/authStorage';
 
 export default function Profile({ navigation }) {
+
+    const [userName, setUserName] = useState('')
+    useEffect(()=>{
+        const fetchAuthData = async () => {
+            const { userName } = await getAuthData();
+            setUserName(userName);
+       };
+       fetchAuthData();
+    },[])
     const handleLogout = async () => {
         await clearAuthData();
         navigation.navigate('Home');
@@ -19,7 +30,8 @@ export default function Profile({ navigation }) {
                         backgroundColor: '#02ADD9',
                     }}
                 />
-                <Text style={styles.userText}>Hola, UserName</Text>
+                <Text style={styles.userText}>{`Bienvenido 👋 ${userName}`}</Text>
+                
             </View>
             <View style={styles.separator} />
             <View
@@ -29,8 +41,11 @@ export default function Profile({ navigation }) {
                     width: '90%',
                     height: '60%',
                 }}
-            >
-                <Text style={styles.mainText}>QR's Escaneados: 10</Text>
+            ><Text style={styles.mainText}>🌿 ¡Bienvenido a EcoScan! 🌿 Nuestra aplicación está diseñada para hacer tus rutas de turismo 
+            ecológico y senderismo aún más emocionantes. Simplemente escanea un código QR 📷 y descubre imágenes 🖼️, textos 📖 y audios 🎧 
+            que te brindarán información fascinante sobre tu entorno natural. Enriquece tu aventura y disfruta al máximo de la naturaleza 
+            con EcoScan. 🌳✨</Text>
+               
                 <Button
                     onPress={() => {
                         handleLogout();
@@ -70,7 +85,9 @@ const styles = StyleSheet.create({
     },
     mainText: {
         color: 'black',
-        fontSize: 30,
+        fontSize: 20,
+        textAlign:'center',
+        marginBottom:40
     },
 
     button: {
