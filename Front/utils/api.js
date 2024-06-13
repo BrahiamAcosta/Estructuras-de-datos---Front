@@ -48,7 +48,7 @@ export const addQrToFavorite = async (identifier,userName)=>{
       body: JSON.stringify({ qrIdentifier: identifier, userName: userName })
     }).then(response => {
       if (!response.ok) {
-        throw new Error('Error addins single QR to favorites');
+        throw new Error('Error adding single QR to favorites');
       }
       return response.json();
     })
@@ -57,3 +57,71 @@ export const addQrToFavorite = async (identifier,userName)=>{
       return {message:"este Qr no exite en nuestra base de datos :("}
     });
 }
+
+export const getAllUserQrs = async (userName) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/all/${userName}`);
+
+    if (!response.ok) {
+      throw new Error('Error fetching QRs');
+    }
+
+    const data = await response.json();
+
+    if (!data.qrs || !Array.isArray(data.qrs)) {
+      throw new Error('QRs data not found or invalid format');
+    }
+
+    // Mapear los recursos de cada QR
+    const qrsWithResources = data.qrs.map(qr => {
+      // Obtener solo los contenidos de los recursos
+      const resources = qr.resources.map(resource => resource.content);
+      const tags = qr.tags.map(tag => tag.name);
+      return {
+        ...qr,
+        resources: resources,
+        tags
+      };
+    });
+    return qrsWithResources;
+
+  } catch (error) {
+    console.error('Error fetching QRs:', error);
+    return { message: "Nombre de usuario inválido" }; // Manejo de errores
+  }
+};
+
+export const getFavoriteUserQrs = async (userName) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/favorites/${userName}`);
+
+    if (!response.ok) {
+      throw new Error('Error fetching QRs');
+    }
+
+    const data = await response.json();
+    console.log(data)
+
+    if (!data.favoriteQrs || !Array.isArray(data.favoriteQrs)) {
+      throw new Error('QRs data not found or invalid format');
+    }
+
+    // Mapear los recursos de cada QR
+    const qrsWithResources = data.favoriteQrs.map(favoriteQrs => {
+      // Obtener solo los contenidos de los recursos
+      const resources = favoriteQrs.resources.map(resource => resource.content);
+      const tags = favoriteQrs.tags.map(tag => tag.name);
+      return {
+        ...favoriteQrs,
+        resources: resources,
+        tags
+      };
+    });
+    return qrsWithResources;
+
+  } catch (error) {
+    console.error('Error fetching QRs:', error);
+    return { message: "Nombre de usuario inválido" }; // Manejo de errores
+  }
+};
+
