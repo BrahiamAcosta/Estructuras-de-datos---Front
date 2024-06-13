@@ -3,7 +3,7 @@ import { Button } from '@rneui/base';
 import { Formik } from 'formik';
 import FormikInputValue from '../Components/FormikInputValue';
 import { loginValidationSchema } from '../validations/loginSchema';
-import { API_URL } from '../config.env';
+import { BASE_URL } from '../config.env';
 import { saveAuthData } from '../utils/authStorage';
 import { useState } from 'react';
 import CustomOverlay from '../Components/CustomOverlay';
@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
     const validate = async (values) => {
         const { email, password } = values;
         try {
-            const response = await fetch(`${API_URL}/auth/login`, {
+            const response = await fetch(`${BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

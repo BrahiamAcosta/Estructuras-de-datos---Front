@@ -30,6 +30,10 @@ export default function ScannerScreen({ navigation }) {
         setVisible(!visible);
     };
 
+    const handleScanned = () =>{
+        setIsScanned(!isScanned)
+    }
+
     return (
         <SafeAreaProvider>
             <View style={styles.background}>
@@ -106,6 +110,7 @@ export default function ScannerScreen({ navigation }) {
                     }}
                 >
                     <Text style={styles.secondary}>Bienvenido!</Text>
+                    <Text style={styles.header}>👋</Text>
                     <Text style={styles.secondary}>{userName}</Text>
                     <Button
                         buttonStyle={{
@@ -145,13 +150,13 @@ export default function ScannerScreen({ navigation }) {
                         </>
                     ) : (
                         <>
-                            <QRScanner />
+                            <QRScanner  handleScanned={handleScanned}/>
                             <Text style={styles.text}>
                                 Apunta tu cámara al código QR :)
                             </Text>
                             <Button
                                 onPress={() => {
-                                    setIsScanned(!isScanned);
+                                    handleScanned()
                                 }}
                                 buttonStyle={styles.button}
                                 title={'Regresar'}
